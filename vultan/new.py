@@ -1,9 +1,8 @@
-import collections
 import pymongo
 import pymongo.errors
 import vultan.errors
 import vultan.types
-from vultan.document import Index, Key, _KeySet, _Attributes
+from vultan.document import _KeySet, _Attributes
 
 
 class Storage(object):
@@ -19,7 +18,7 @@ class Storage(object):
             key_or_list = [(self._attributes.get_dbname(name), direction)
                            for name, direction in key.index]
             created.append(self._get_collection().create_index(
-                    key_or_list, unique=key.unique))
+                key_or_list, unique=key.unique))
 
         indexes = self._get_collection().index_information()
         missing = list(set(created) - set(indexes.keys()))
